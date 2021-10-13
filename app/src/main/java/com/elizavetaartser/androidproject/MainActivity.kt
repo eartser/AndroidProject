@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportFragmentManager
         Log.d(LOG_TAG, "onCreate()")
         setupRecyclerView()
         lifecycleScope.launch {
