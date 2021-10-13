@@ -1,4 +1,4 @@
-package com.elizavetaartser.androidproject
+package com.elizavetaartser.androidproject.entity
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

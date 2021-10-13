@@ -1,4 +1,4 @@
-package com.elizavetaartser.androidproject
+package com.elizavetaartser.androidproject.ui.onboarding
 
 import com.elizavetaartser.androidproject.databinding.ItemOnboardingTextBinding
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding

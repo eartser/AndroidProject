@@ -1,7 +1,9 @@
-package com.elizavetaartser.androidproject
+package com.elizavetaartser.androidproject.ui.userlist
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.elizavetaartser.androidproject.data.network.Api
+import com.elizavetaartser.androidproject.ui.base.BaseViewModel
+import com.elizavetaartser.androidproject.entity.User
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +15,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class UserListViewModel : ViewModel() {
+class UserListViewModel : BaseViewModel() {
 
     sealed class ViewState {
         object Loading : ViewState()

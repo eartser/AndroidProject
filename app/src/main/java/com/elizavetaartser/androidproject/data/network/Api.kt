@@ -1,4 +1,5 @@
-package com.elizavetaartser.androidproject
+package com.elizavetaartser.androidproject.data.network
+import com.elizavetaartser.androidproject.entity.User
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import retrofit2.http.GET
