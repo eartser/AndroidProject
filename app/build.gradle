@@ -59,6 +59,7 @@ dependencies {
     def lifecycleVersion = "2.4.0-alpha03"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
     implementation "androidx.activity:activity-ktx:1.4.0-alpha01"
+    implementation "androidx.fragment:fragment-ktx:1.4.0-alpha10"
 
     // Image loading.
     def glideVersion = "4.11.0"
