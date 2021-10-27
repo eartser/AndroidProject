@@ -3,11 +3,12 @@ package com.elizavetaartser.androidproject.ui.onboarding
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.elizavetaartser.androidproject.ui.base.BaseFragment
 import com.elizavetaartser.androidproject.R
 import com.elizavetaartser.androidproject.databinding.FragmentOnboardingBinding
+import com.elizavetaartser.androidproject.ui.base.BaseFragment
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
@@ -37,12 +38,10 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
         viewBinding.viewPager.setTextPages()
         viewBinding.viewPager.attachDots(viewBinding.onboardingTextTabLayout)
         viewBinding.signInButton.setOnClickListener {
-            // TODO: Go to SignInFragment.
-            Toast.makeText(requireContext(), "Нажата кнопка войти", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_onboardingFragment_to_signInFragment)
         }
         viewBinding.signUpButton.setOnClickListener {
-            // TODO: Go to SignUpFragment.
-            Toast.makeText(requireContext(), "Нажата кнопка зарегистрироваться", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_onboardingFragment_to_signUpFragment)
         }
     }
 
