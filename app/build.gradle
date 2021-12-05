@@ -59,6 +59,7 @@ dependencies {
     def lifecycleVersion = "2.4.0-alpha03"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
     implementation "androidx.activity:activity-ktx:1.4.0-alpha01"
+    implementation "androidx.fragment:fragment-ktx:1.4.0-alpha10"
 
     // Image loading.
     def glideVersion = "4.11.0"
@@ -67,4 +68,23 @@ dependencies {
 
     // View binding helper.
     implementation "com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.4.4"
+
+    // Video player
+    def exoPlayerVersion = "2.15.0"
+    implementation "com.google.android.exoplayer:exoplayer-core:$exoPlayerVersion"
+    implementation "com.google.android.exoplayer:exoplayer-ui:$exoPlayerVersion"
+
+    // RecyclerView adapter delegates.
+    // https://github.com/sockeqwe/AdapterDelegates
+    def adapterDelegatesVersion = '4.3.0'
+    implementation "com.hannesdorfmann:adapterdelegates4-kotlin-dsl:$adapterDelegatesVersion"
+    implementation "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:$adapterDelegatesVersion"
+
+    // Logger.
+    implementation "com.jakewharton.timber:timber:4.7.1"
+
+    // Navigation.
+    def navigationVersion = "2.4.0-alpha09"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 }
