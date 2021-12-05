@@ -1,9 +1,11 @@
 package com.elizavetaartser.androidproject.ui.userlist
 
 import androidx.lifecycle.viewModelScope
+import com.elizavetaartser.androidproject.BuildConfig
 import com.elizavetaartser.androidproject.data.network.Api
-import com.elizavetaartser.androidproject.ui.base.BaseViewModel
+import com.elizavetaartser.androidproject.data.network.MockApi
 import com.elizavetaartser.androidproject.entity.User
+import com.elizavetaartser.androidproject.ui.base.BaseViewModel
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -40,17 +42,23 @@ class UserListViewModel : BaseViewModel() {
         }
     }
 
-    private fun provideApi(): Api {
-        return Retrofit.Builder()
-            .client(provideOkHttpClient())
-            .baseUrl("https://reqres.in/api/")
-            .addConverterFactory(MoshiConverterFactory.create(provideMoshi()))
-            .build()
-            .create(Api::class.java)
-    }
+    private fun provideApi(): Api =
+        if (BuildConfig.USE_MOCK_BACKEND_API) {
+            MockApi()
+        }
+        else {
+            Retrofit.Builder()
+                .client(provideOkHttpClient())
+                .baseUrl("https://reqres.in/api/")
+                .addConverterFactory(MoshiConverterFactory.create(provideMoshi()))
+                .build()
+                .create(Api::class.java)
+        }
 
     private fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder().build()
+        return OkHttpClient.Builder()
+            // .addNetworkInterceptor(AuthorizationInterceptor(authRepository))
+            .build()
     }
 
     private fun provideMoshi(): Moshi {

@@ -24,8 +24,8 @@ import com.elizavetaartser.androidproject.R
 import com.elizavetaartser.androidproject.databinding.FragmentSignUpBinding
 import com.elizavetaartser.androidproject.ui.base.BaseFragment
 import com.elizavetaartser.androidproject.util.getSpannedString
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
     private val viewModel: SignUpViewModel by viewModels()

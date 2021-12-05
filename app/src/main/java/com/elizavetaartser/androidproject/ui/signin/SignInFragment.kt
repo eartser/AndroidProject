@@ -11,7 +11,9 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.elizavetaartser.androidproject.R
 import com.elizavetaartser.androidproject.databinding.FragmentSignInBinding
 import com.elizavetaartser.androidproject.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
 
     private val viewBinding by viewBinding(FragmentSignInBinding::bind)
@@ -40,6 +42,7 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
                 email = viewBinding.emailEditText.text?.toString() ?: "",
                 password = viewBinding.passwordEditText.text?.toString() ?: ""
             )
+
         }
         subscribeToFormFields()
     }
