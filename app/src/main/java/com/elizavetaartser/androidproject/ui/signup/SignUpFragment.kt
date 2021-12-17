@@ -25,6 +25,7 @@ import com.elizavetaartser.androidproject.databinding.FragmentSignUpBinding
 import com.elizavetaartser.androidproject.ui.base.BaseFragment
 import com.elizavetaartser.androidproject.util.getSpannedString
 import dagger.hilt.android.AndroidEntryPoint
+import dev.chrisbanes.insetter.applyInsetter
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -51,6 +52,9 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
         viewBinding.backButton.setOnClickListener {
             onBackButtonPressed()
         }
+        viewBinding.backButton.applyInsetter {
+            type(statusBars = true) { margin() }
+        }
         viewBinding.signUpButton.setOnClickListener {
             viewModel.signUp(
                 firstname = viewBinding.firstnameEditText.text?.toString() ?: "",
@@ -60,6 +64,9 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
                 password = viewBinding.passwordEditText.text?.toString() ?: ""
             )
             //findNavController().navigate(R.id.emailConfirmationFragment)
+        }
+        viewBinding.signUpButton.applyInsetter {
+            type(navigationBars = true) { margin() }
         }
         viewBinding.termsAndConditionsCheckBox.setTermsAndConditionsText {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://policies.google.com/terms")))
