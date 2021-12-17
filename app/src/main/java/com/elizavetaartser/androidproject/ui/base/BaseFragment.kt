@@ -4,8 +4,8 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.elizavetaartser.androidproject.BuildConfig
-import com.elizavetaartser.androidproject.util.logBackstack
-import com.elizavetaartser.androidproject.util.logFragmentHierarchy
+import com.elizavetaartser.androidproject.util.extensions.logBackstack
+import com.elizavetaartser.androidproject.util.extensions.logFragmentHierarchy
 import timber.log.Timber
 
 open class BaseFragment : Fragment {

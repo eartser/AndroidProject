@@ -1,4 +1,4 @@
-package com.elizavetaartser.androidproject.util
+package com.elizavetaartser.androidproject.util.extensions
 
 import android.content.res.Resources
 import android.text.SpannableStringBuilder
