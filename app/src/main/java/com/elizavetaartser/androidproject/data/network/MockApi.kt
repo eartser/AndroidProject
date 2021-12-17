@@ -6,11 +6,20 @@ import com.elizavetaartser.androidproject.data.network.request.SignInWithEmailRe
 import com.elizavetaartser.androidproject.data.network.response.VerificationTokenResponse
 import com.elizavetaartser.androidproject.data.network.response.error.*
 import com.elizavetaartser.androidproject.entity.AuthTokens
+import com.elizavetaartser.androidproject.entity.User
 import com.haroldadmin.cnradapter.NetworkResponse
 
 class MockApi : Api {
     override suspend fun getUsers(): GetUsersResponse {
-        TODO("Not yet implemented")
+        return GetUsersResponse(
+            (0 until 20).map {
+                User(
+                    "https://d2ph5fj80uercy.cloudfront.net/05/cat${1000 + it}.jpg",
+                    "User $it",
+                    "Group A"
+                )
+            }
+        )
     }
 
     override suspend fun signInWithEmail(request: SignInWithEmailRequest): NetworkResponse<AuthTokens, SignInWithEmailErrorResponse> {

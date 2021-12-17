@@ -1,10 +1,10 @@
 package com.elizavetaartser.androidproject.interactor
 
-import com.haroldadmin.cnradapter.NetworkResponse
+import com.elizavetaartser.androidproject.data.network.response.error.CreateProfileErrorResponse
 import com.elizavetaartser.androidproject.data.network.response.error.SignInWithEmailErrorResponse
 import com.elizavetaartser.androidproject.entity.AuthTokens
 import com.elizavetaartser.androidproject.repository.AuthRepository
-import com.elizavetaartser.androidproject.repository.OldAuthRepository
+import com.haroldadmin.cnradapter.NetworkResponse
 import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
 import javax.inject.Inject

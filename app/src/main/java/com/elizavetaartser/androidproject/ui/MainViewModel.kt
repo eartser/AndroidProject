@@ -1,10 +1,10 @@
 package com.elizavetaartser.androidproject.ui
 
 import com.elizavetaartser.androidproject.interactor.AuthInteractor
-import com.elizavetaartser.androidproject.repository.OldAuthRepository
 import com.elizavetaartser.androidproject.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel

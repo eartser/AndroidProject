@@ -17,7 +17,9 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import timber.log.Timber
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class AuthRepository @Inject constructor(
     private val apiLazy: Lazy<Api>,
     private val localKeyValueStorage: LocalKeyValueStorage,
@@ -73,10 +75,11 @@ class AuthRepository @Inject constructor(
      * @return access tokens with higher permissions for the new registered user
      */
     suspend fun generateAuthTokensByEmailAndPersonalInfo(
-        email: String,
         verificationToken: String,
         firstName: String,
         lastName: String,
+        email: String,
+        login: String,
         password: String
     ): NetworkResponse<AuthTokens, CreateProfileErrorResponse> {
         return api.createProfile(
@@ -85,6 +88,7 @@ class AuthRepository @Inject constructor(
                 firstName,
                 lastName,
                 email,
+                login,
                 password
             )
         )

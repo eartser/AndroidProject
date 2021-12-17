@@ -48,7 +48,7 @@ class LocalKeyValueStorage(
 
     companion object {
 
-        private const val AUTH_TOKENS = "auth_tokens"
+        private const val AUTH_TOKENS = "auth_tokens_backend"
     }
 }
 
