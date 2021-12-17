@@ -2,6 +2,8 @@ package com.elizavetaartser.androidproject.ui.onboarding
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -20,6 +22,8 @@ import dev.chrisbanes.insetter.applyInsetter
 class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
 
     private val viewBinding by viewBinding(FragmentOnboardingBinding::bind)
+
+    private val viewModel: OnboardingViewModel by viewModels()
 
     private var player: ExoPlayer? = null
 
@@ -49,6 +53,13 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
 
         viewBinding.signUpButton.applyInsetter {
             type(navigationBars = true) { margin() }
+        }
+        setVolume()
+        viewBinding.volumeControlButton.setOnClickListener {
+            viewBinding.playerView.player?.let {
+                viewModel.isMuted = !viewModel.isMuted
+                setVolume()
+            }
         }
     }
 
@@ -81,6 +92,17 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
 
     private fun ViewPager2.attachDots(tabLayout: TabLayout) {
         TabLayoutMediator(tabLayout, this) { _, _ -> }.attach()
+    }
+
+    private fun setVolume() {
+        if (viewModel.isMuted) {
+            viewBinding.playerView.player?.volume = 0F
+            viewBinding.volumeControlButton.setImageResource(R.drawable.ic_volume_off_white_24dp)
+        }
+        else {
+            viewBinding.playerView.player?.volume = 1F
+            viewBinding.volumeControlButton.setImageResource(R.drawable.ic_volume_up_white_24dp)
+        }
     }
 
 }
