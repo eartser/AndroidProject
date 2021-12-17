@@ -22,11 +22,11 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(holder.avatarImageView)
-            .load(userList[position].avatarUrl)
+            .load(userList[position].avatar)
             .circleCrop()
             .into(holder.avatarImageView)
-        holder.userNameTextView.text = userList[position].userName
-        holder.groupNameTextView.text = userList[position].groupName
+        holder.userNameTextView.text = userList[position].login
+        holder.groupNameTextView.text = userList[position].group_name
     }
 
     override fun getItemCount(): Int {

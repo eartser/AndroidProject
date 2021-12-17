@@ -14,9 +14,14 @@ class MockApi : Api {
         return GetUsersResponse(
             (0 until 20).map {
                 User(
+                    "User$it",
+                    "$it",
+                    "name",
+                    "",
+                    "",
                     "https://d2ph5fj80uercy.cloudfront.net/05/cat${1000 + it}.jpg",
-                    "User $it",
-                    "Group A"
+                    "Group A",
+                    "+790449320$it"
                 )
             }
         )
@@ -52,5 +57,18 @@ class MockApi : Api {
 
     override suspend fun createProfile(request: CreateProfileRequest): NetworkResponse<AuthTokens, CreateProfileErrorResponse> {
         TODO("Not yet implemented")
+    }
+
+    override suspend fun getProfile(): User {
+        return User(
+            "eartser",
+            "Елизавета",
+            "Арцер",
+            "",
+            "",
+            "https://d2ph5fj80uercy.cloudfront.net/05/cat1014.jpg",
+            "19.Б09-мкн",
+            ""
+        )
     }
 }
