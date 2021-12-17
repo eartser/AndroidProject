@@ -8,12 +8,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.elizavetaartser.androidproject.ui.base.BaseFragment
 import com.elizavetaartser.androidproject.R
 import com.elizavetaartser.androidproject.databinding.FragmentUserlistBinding
+import com.elizavetaartser.androidproject.ui.base.BaseFragment
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-
 
 class UserListFragment : BaseFragment(R.layout.fragment_userlist) {
 
