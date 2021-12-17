@@ -1,5 +1,7 @@
 package com.elizavetaartser.androidproject.ui.signup
 
+import android.animation.AnimatorInflater
+import android.animation.AnimatorSet
 import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
@@ -71,6 +73,7 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
         viewBinding.termsAndConditionsCheckBox.setTermsAndConditionsText {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://policies.google.com/terms")))
         }
+        runAnimation()
         subscribeToFormFields()
     }
 
@@ -202,5 +205,11 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
                     }
                 }
             )
+    }
+
+    private fun runAnimation() {
+        val set = AnimatorInflater.loadAnimator(context, R.animator.animator_scaling) as AnimatorSet
+        set.setTarget(viewBinding.mknLogoImageView)
+        set.start()
     }
 }

@@ -1,5 +1,7 @@
 package com.elizavetaartser.androidproject.ui.signin
 
+import android.animation.AnimatorInflater
+import android.animation.AnimatorSet
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
@@ -51,6 +53,7 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
         viewBinding.signInButton.applyInsetter {
             type(navigationBars = true) { margin() }
         }
+        runAnimation()
         subscribeToFormFields()
     }
 
@@ -93,5 +96,11 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
 
     private fun decideSignInButtonEnabledState(email: String?, password: String?) {
         viewBinding.signInButton.isEnabled = !(email.isNullOrBlank() || password.isNullOrBlank())
+    }
+
+    private fun runAnimation() {
+        val set = AnimatorInflater.loadAnimator(context, R.animator.animator_scaling) as AnimatorSet
+        set.setTarget(viewBinding.mknLogoImageView)
+        set.start()
     }
 }
