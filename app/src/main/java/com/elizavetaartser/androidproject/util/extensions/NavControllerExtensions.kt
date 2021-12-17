@@ -1,4 +1,4 @@
-package com.elizavetaartser.androidproject.util
+package com.elizavetaartser.androidproject.util.extensions
 
 import androidx.navigation.NavController
 import timber.log.Timber

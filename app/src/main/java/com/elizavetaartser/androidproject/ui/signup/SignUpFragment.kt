@@ -25,7 +25,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.elizavetaartser.androidproject.R
 import com.elizavetaartser.androidproject.databinding.FragmentSignUpBinding
 import com.elizavetaartser.androidproject.ui.base.BaseFragment
-import com.elizavetaartser.androidproject.util.getSpannedString
+import com.elizavetaartser.androidproject.util.extensions.getSpannedString
 import dagger.hilt.android.AndroidEntryPoint
 import dev.chrisbanes.insetter.applyInsetter
 import kotlinx.coroutines.flow.collect

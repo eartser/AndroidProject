@@ -3,7 +3,6 @@ package com.elizavetaartser.androidproject.ui.onboarding
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -19,6 +18,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import dev.chrisbanes.insetter.applyInsetter
 import java.util.*
+import kotlin.math.abs
+import com.elizavetaartser.androidproject.util.extensions.dpToPx
 
 class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
 
@@ -44,6 +45,14 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
         viewBinding.playerView.player = player
         viewBinding.viewPager.setTextPages()
         viewBinding.viewPager.attachDots(viewBinding.onboardingTextTabLayout)
+        viewBinding.viewPager.offscreenPageLimit = 1
+        viewBinding.viewPager.setPageTransformer { page, position ->
+            val distance = abs(position)
+            page.scaleX = 1 - distance / 2
+            page.scaleY = 1 - distance / 2
+            page.alpha = 1 - distance * 0.3f
+            page.translationX = -view.dpToPx(200.0f) * position
+        }
         viewBinding.signInButton.setOnClickListener {
             findNavController().navigate(R.id.action_onboardingFragment_to_signInFragment)
         }

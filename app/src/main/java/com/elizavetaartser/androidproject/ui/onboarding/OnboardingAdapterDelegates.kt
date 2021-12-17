@@ -1,6 +1,7 @@
 package com.elizavetaartser.androidproject.ui.onboarding
 
 import com.elizavetaartser.androidproject.databinding.ItemOnboardingTextBinding
+import com.elizavetaartser.androidproject.util.extensions.dpToPx
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
 fun onboardingTextAdapterDelegate() =
@@ -10,7 +11,11 @@ fun onboardingTextAdapterDelegate() =
         },
         block = {
             bind {
-                binding.textView.text = item
+                binding.textView.apply {
+                    text = item
+                    val padding = dpToPx(48.0f).toInt()
+                    setPadding(padding, 0, padding, 0)
+                }
             }
         }
     )
