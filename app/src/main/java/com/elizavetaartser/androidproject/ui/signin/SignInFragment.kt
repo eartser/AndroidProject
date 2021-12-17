@@ -12,6 +12,7 @@ import com.elizavetaartser.androidproject.R
 import com.elizavetaartser.androidproject.databinding.FragmentSignInBinding
 import com.elizavetaartser.androidproject.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import dev.chrisbanes.insetter.applyInsetter
 
 @AndroidEntryPoint
 class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
@@ -37,12 +38,18 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
         viewBinding.backButton.setOnClickListener {
             onBackButtonPressed()
         }
+        viewBinding.backButton.applyInsetter {
+            type(statusBars = true) { margin() }
+        }
         viewBinding.signInButton.setOnClickListener {
             viewModel.signIn(
                 email = viewBinding.emailEditText.text?.toString() ?: "",
                 password = viewBinding.passwordEditText.text?.toString() ?: ""
             )
 
+        }
+        viewBinding.signInButton.applyInsetter {
+            type(navigationBars = true) { margin() }
         }
         subscribeToFormFields()
     }

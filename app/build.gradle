@@ -139,4 +139,9 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-compiler:$hiltVersion"
     implementation "androidx.hilt:hilt-navigation-fragment:1.0.0"
+
+    // System insets handling.
+    // https://chrisbanes.github.io/insetter
+    // https://github.com/chrisbanes/insetter
+    implementation "dev.chrisbanes.insetter:insetter:0.6.0"
 }

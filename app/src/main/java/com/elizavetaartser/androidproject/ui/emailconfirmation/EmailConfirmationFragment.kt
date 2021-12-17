@@ -9,6 +9,7 @@ import com.elizavetaartser.androidproject.R
 import com.elizavetaartser.androidproject.databinding.FragmentEmailConfirmationBinding
 import com.elizavetaartser.androidproject.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import dev.chrisbanes.insetter.applyInsetter
 
 @AndroidEntryPoint
 class EmailConfirmationFragment : BaseFragment(R.layout.fragment_email_confirmation) {
@@ -24,6 +25,12 @@ class EmailConfirmationFragment : BaseFragment(R.layout.fragment_email_confirmat
         }
         viewBinding.confirmButton.setOnClickListener {
             viewModel.signIn("", "")
+        }
+        viewBinding.confirmButton.applyInsetter {
+            type(navigationBars = true) { margin() }
+        }
+        viewBinding.backButton.applyInsetter {
+            type(statusBars = true) { margin() }
         }
     }
 }
