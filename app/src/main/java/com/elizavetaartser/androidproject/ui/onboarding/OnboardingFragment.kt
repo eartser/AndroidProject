@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import dev.chrisbanes.insetter.applyInsetter
+import java.util.*
 
 class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
 
@@ -26,6 +27,8 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
     private val viewModel: OnboardingViewModel by viewModels()
 
     private var player: ExoPlayer? = null
+    private var scrollTimer: Timer? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,21 +64,25 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
                 setVolume()
             }
         }
+        startScrollTimer()
     }
 
     override fun onResume() {
         super.onResume()
         player?.play()
+        startScrollTimer()
     }
 
     override fun onPause() {
         super.onPause()
         player?.pause()
+        stopScrollTimer()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         player?.release()
+        stopScrollTimer()
     }
 
     private fun ViewPager2.setTextPages() {
@@ -102,6 +109,46 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
         else {
             viewBinding.playerView.player?.volume = 1F
             viewBinding.volumeControlButton.setImageResource(R.drawable.ic_volume_up_white_24dp)
+        }
+    }
+
+    private fun startScrollTimer() {
+        scrollTimer?.cancel()
+        scrollTimer = Timer().apply {
+            scheduleAtFixedRate(scrollTask(), 4000, 4000)
+        }
+    }
+
+    private fun stopScrollTimer() {
+        scrollTimer?.cancel()
+        scrollTimer = null
+    }
+
+    private fun scrollTask() = object : TimerTask() {
+        override fun run() {
+            activity?.runOnUiThread {
+                viewBinding.viewPager.apply {
+                    setCurrentItem((currentItem + 1) % (adapter?.itemCount ?: 1), true)
+                }
+            }
+        }
+    }
+
+    private val pageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
+
+        override fun onPageScrollStateChanged(state: Int) {
+            super.onPageScrollStateChanged(state)
+            when (state) {
+                ViewPager2.SCROLL_STATE_IDLE -> {
+                    startScrollTimer()
+                }
+                ViewPager2.SCROLL_STATE_DRAGGING -> {
+                    stopScrollTimer()
+                }
+                ViewPager2.SCROLL_STATE_SETTLING -> {
+                    stopScrollTimer()
+                }
+            }
         }
     }
 
