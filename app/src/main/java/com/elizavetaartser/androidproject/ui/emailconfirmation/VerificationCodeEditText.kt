@@ -8,8 +8,10 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
+import com.elizavetaartser.androidproject.R
 import com.elizavetaartser.androidproject.databinding.ViewVerificationCodeEditTextBinding
 import java.lang.Math.min
+import kotlin.properties.Delegates
 
 class VerificationCodeEditText @JvmOverloads constructor(
     context: Context,
@@ -21,17 +23,21 @@ class VerificationCodeEditText @JvmOverloads constructor(
     private val viewBinding =
         ViewVerificationCodeEditTextBinding.inflate(LayoutInflater.from(context), this)
 
-    private val slotViews: List<VerificationCodeSlotView> =
-        listOf(
-            viewBinding.slot1,
-            viewBinding.slot2,
-            viewBinding.slot3,
-            viewBinding.slot4,
-            viewBinding.slot5,
-            viewBinding.slot6
-        )
+    private var numberOfSlots: Int by Delegates.observable(5) { _, _, newValue ->
+        for (i in 0 until newValue) {
+            LayoutInflater.from(context).inflate(
+                R.layout.view_verification_code_layout, viewBinding.slotLinearLayout
+            )
+        }
+        slotViews = (0 until newValue).toMutableList().map {
+            viewBinding.slotLinearLayout.getChildAt(it) as VerificationCodeSlotView
+        }
+        slotValues = Array(newValue) { null }
+    }
 
-    private val slotValues: Array<CharSequence?> = Array(6) { null }
+    private var slotViews: List<VerificationCodeSlotView> = emptyList<VerificationCodeSlotView>()
+
+    private var slotValues: Array<CharSequence?> = emptyArray<CharSequence?>()
 
     var onVerificationCodeFilledListener: (String) -> Unit = {}
 
@@ -72,6 +78,18 @@ class VerificationCodeEditText @JvmOverloads constructor(
         }
         slotValues.fillWith(viewBinding.realVerificationCodeEditText.text)
         slotViews.render(slotValues)
+
+        context
+            .theme
+            .obtainStyledAttributes(
+                attrs,
+                R.styleable.VerificationCodeEditText,
+                defStyleAttr,
+                defStyleRes
+            )
+            .apply {
+                numberOfSlots = getInt(R.styleable.VerificationCodeEditText_vcet_numberOfSlots, 6)
+            }
     }
 
     fun getCode(): String {
