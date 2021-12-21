@@ -11,6 +11,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.elizavetaartser.androidproject.R
 import com.elizavetaartser.androidproject.databinding.FragmentUserlistBinding
 import com.elizavetaartser.androidproject.ui.base.BaseFragment
+import dev.chrisbanes.insetter.applyInsetter
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -23,6 +24,11 @@ class UserListFragment : BaseFragment(R.layout.fragment_userlist) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+
+        viewBinding.usersRecyclerView.applyInsetter {
+            type(statusBars = true) { margin() }
+        }
+
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.viewState.collect { viewState ->
