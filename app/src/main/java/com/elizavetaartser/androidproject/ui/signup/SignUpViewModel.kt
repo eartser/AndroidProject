@@ -30,7 +30,8 @@ class SignUpViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             try {
-                authInteractor.signInWithEmail(email, password)
+                // authInteractor.signInWithEmail(email, password)
+                throw RuntimeException("TODO: implement signing up")
                 _eventChannel.send(Event.SignUpSuccess)
             } catch (error: Exception) {
                 _eventChannel.send(Event.SignUpEmailConfirmationRequired)
