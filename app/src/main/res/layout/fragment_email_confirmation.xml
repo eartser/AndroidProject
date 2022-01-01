@@ -33,6 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/backButton" />
 
     <com.elizavetaartser.androidproject.ui.emailconfirmation.VerificationCodeEditText
+        android:id="@+id/verificationCodeView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
@@ -40,6 +41,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
+
+    <TextView
+        android:id="@+id/refreshTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="64dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textColorLink="@color/brand_blue"
+        app:layout_constraintEnd_toEndOf="@+id/verificationCodeView"
+        app:layout_constraintStart_toStartOf="@+id/verificationCodeView"
+        app:layout_constraintTop_toBottomOf="@+id/verificationCodeView"
+        tools:text="@string/email_confirmation_refresh_wait_template"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/confirmButton"

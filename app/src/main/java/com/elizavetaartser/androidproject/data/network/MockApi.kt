@@ -44,7 +44,10 @@ class MockApi : Api {
     }
 
     override suspend fun sendRegistrationVerificationCode(email: String): NetworkResponse<Unit, SendRegistrationVerificationCodeErrorResponse> {
-        TODO("Not yet implemented")
+        return NetworkResponse.Success(
+            Unit,
+            code = 200
+        )
     }
 
     override suspend fun verifyRegistrationCode(
@@ -52,7 +55,10 @@ class MockApi : Api {
         email: String?,
         phoneNumber: String?
     ): NetworkResponse<VerificationTokenResponse, VerifyRegistrationCodeErrorResponse> {
-        TODO("Not yet implemented")
+        return NetworkResponse.Success(
+            VerificationTokenResponse("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2MzgsImV4cCI6MTY0MDg3MTc3MX0.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI"),
+            code = 200
+        )
     }
 
     override suspend fun createProfile(request: CreateProfileRequest): NetworkResponse<AuthTokens, CreateProfileErrorResponse> {
