@@ -55,10 +55,17 @@ class MockApi : Api {
         email: String?,
         phoneNumber: String?
     ): NetworkResponse<VerificationTokenResponse, VerifyRegistrationCodeErrorResponse> {
-        return NetworkResponse.Success(
-            VerificationTokenResponse("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2MzgsImV4cCI6MTY0MDg3MTc3MX0.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI"),
-            code = 200
-        )
+        return if (code == "1234") {
+            NetworkResponse.Success(
+                VerificationTokenResponse("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2MzgsImV4cCI6MTY0MDg3MTc3MX0.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI"),
+                code = 200
+            )
+        } else {
+            NetworkResponse.ServerError(
+                VerifyRegistrationCodeErrorResponse(listOf(Error("Code must be 1234"))),
+                code = 401
+            )
+        }
     }
 
     override suspend fun createProfile(request: CreateProfileRequest): NetworkResponse<AuthTokens, CreateProfileErrorResponse> {

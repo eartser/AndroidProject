@@ -2,12 +2,12 @@ package com.elizavetaartser.androidproject.ui.emailconfirmation
 
 import android.os.Bundle
 import android.text.TextPaint
+import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.Toast
 import androidx.core.text.buildSpannedString
 import androidx.core.text.inSpans
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -35,7 +35,7 @@ class EmailConfirmationFragment : BaseFragment(R.layout.fragment_email_confirmat
     private val email: String = "random_email@random.rand"
     private val password: String = "random_password"
 
-    private val defaultSecsToWaitToResend: Int = 60
+    private val defaultSecsToWaitToResend: Int = 10
     private var secsToWaitToResend: Int = defaultSecsToWaitToResend
 
     private var refreshTimer: Timer? = null
@@ -54,7 +54,7 @@ class EmailConfirmationFragment : BaseFragment(R.layout.fragment_email_confirmat
         viewBinding.backButton.applyInsetter {
             type(statusBars = true) { margin() }
         }
-        viewBinding.refreshTextView.isVisible = false
+        subscribeToRefresh()
         subscribeToCodeView()
         subscribeToEvents()
     }
@@ -65,7 +65,6 @@ class EmailConfirmationFragment : BaseFragment(R.layout.fragment_email_confirmat
                 viewModel.eventsFlow().collect { event ->
                     when (event) {
                         EmailConfirmationViewModel.Event.VerificationCodeSent -> {
-                            subscribeToRefresh()
                             Toast
                                 .makeText(
                                     requireContext(),
@@ -76,6 +75,28 @@ class EmailConfirmationFragment : BaseFragment(R.layout.fragment_email_confirmat
                         }
                         is EmailConfirmationViewModel.Event.VerificationSuccess -> {
                             viewModel.signIn(email, password)
+                        }
+                        is EmailConfirmationViewModel.Event.VerificationCodeSendError -> {
+                            Toast
+                                .makeText(
+                                    requireContext(),
+                                    "Verification code sending failed: ${
+                                        event.e.body?.nonFieldErrors?.elementAtOrNull(0)?.message
+                                    }",
+                                    Toast.LENGTH_LONG
+                                )
+                                .show()
+                        }
+                        is EmailConfirmationViewModel.Event.VerificationFailed -> {
+                            Toast
+                                .makeText(
+                                    requireContext(),
+                                    "Verification failed: ${
+                                        event.e.body?.nonFieldErrors?.elementAtOrNull(0)?.message
+                                    }",
+                                    Toast.LENGTH_LONG
+                                )
+                                .show()
                         }
                         else -> {
                             // Nothing
@@ -100,12 +121,18 @@ class EmailConfirmationFragment : BaseFragment(R.layout.fragment_email_confirmat
         viewBinding.confirmButton.isEnabled = isFilled
     }
 
+    private fun stopTimer() {
+        refreshTimer?.cancel()
+        refreshTimer = null
+    }
+
     private fun subscribeToRefresh() {
-        viewBinding.refreshTextView.isVisible = true
         viewModel.sendVerificationCode(email)
         secsToWaitToResend = defaultSecsToWaitToResend
         val timerTask = timerTask {
-            decideRefreshText(secsToWaitToResend--)
+            activity?.runOnUiThread {
+                decideRefreshText(secsToWaitToResend--)
+            }
         }
         refreshTimer?.cancel()
         refreshTimer = Timer().apply {
@@ -115,13 +142,14 @@ class EmailConfirmationFragment : BaseFragment(R.layout.fragment_email_confirmat
 
     private fun decideRefreshText(sec: Int) {
         if (sec > 0) {
-            viewBinding.refreshTextView.text = resources.getSpannedString(
-                R.string.email_confirmation_refresh_wait_template,
-                sec.toString()
+            viewBinding.refreshTextView.text = resources.getString(
+                R.string.email_confirmation_refresh_wait_template, sec
             )
         } else {
             val clickableSpan = object : ClickableSpan() {
-                override fun onClick(widget: View) = subscribeToRefresh()
+                override fun onClick(widget: View) {
+                    subscribeToRefresh()
+                }
 
                 override fun updateDrawState(ds: TextPaint) {
                     super.updateDrawState(ds)
@@ -129,17 +157,19 @@ class EmailConfirmationFragment : BaseFragment(R.layout.fragment_email_confirmat
                 }
             }
 
+            viewBinding.refreshTextView.movementMethod = LinkMovementMethod.getInstance()
             viewBinding.refreshTextView.text = buildSpannedString {
                 inSpans(clickableSpan) {
                     append(resources.getSpannedString(R.string.email_confirmation_refresh_text))
                 }
             }
+
+            stopTimer()
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        refreshTimer?.cancel()
-        refreshTimer = null
+        stopTimer()
     }
 }
