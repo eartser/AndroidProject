@@ -71,7 +71,10 @@ class PostLikesView @JvmOverloads constructor(
     }
 
     fun updateAvatar(id: Int, bm: Bitmap) {
-        avatars[id] = bm
+        avatars[id] = Bitmap.createScaledBitmap(
+            getCroppedBitmap(bm), (2 * avatarRadius).toInt(),
+            (2 * avatarRadius).toInt(), false
+        )
         invalidate()
     }
 

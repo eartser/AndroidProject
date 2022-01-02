@@ -17,6 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.elizavetaartser.androidproject.ui.news.PostLikesView
+        android:id="@+id/postLikesView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/textDescription"
