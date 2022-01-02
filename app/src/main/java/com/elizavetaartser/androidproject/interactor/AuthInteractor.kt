@@ -1,6 +1,5 @@
 package com.elizavetaartser.androidproject.interactor
 
-import com.elizavetaartser.androidproject.data.network.response.error.CreateProfileErrorResponse
 import com.elizavetaartser.androidproject.data.network.response.error.SignInWithEmailErrorResponse
 import com.elizavetaartser.androidproject.entity.AuthTokens
 import com.elizavetaartser.androidproject.repository.AuthRepository

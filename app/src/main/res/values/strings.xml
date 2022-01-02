@@ -29,4 +29,6 @@
     <string name="profile_logout_button_text">Выйти</string>
     <string name="common_general_error_text">Произошла ошибка. Пожалуйста, попробуйте позже.</string>
     <string name="common_counter_prefix">+%d</string>
+    <string name="email_confirmation_refresh_wait_template">Отправить код повторно можно будет через %d секунд</string>
+    <string name="email_confirmation_refresh_text">Отправить код повторно</string>
 </resources>
